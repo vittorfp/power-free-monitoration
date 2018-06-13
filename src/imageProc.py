@@ -33,11 +33,11 @@ class imageProc(object):
 
 	def reinsertCrop(self,frame,new,type):
 		if type == 'trolley':
-			frame[ self.y_topCorner_TROLLEY:self.y_botCorner_TROLLEY,self.x_topCorner_TROLLEY:self.x_botCorner_TROLLEY] = new
+			frame[ self.y_topCorner_TROLLEY:self.y_botCorner_TROLLEY,self.x_topCorner_TROLLEY:self.x_botCorner_TROLLEY,:] = new
 		elif type == 'arrastador':
-			frame[self.y_topCorner_ARRASTADOR:self.y_botCorner_ARRASTADOR,  self.x_topCorner_ARRASTADOR:self.x_botCorner_ARRASTADOR ] = new
+			frame[self.y_topCorner_ARRASTADOR:self.y_botCorner_ARRASTADOR,  self.x_topCorner_ARRASTADOR:self.x_botCorner_ARRASTADOR] = new #cv2.cvtColor(new, cv2.COLOR_GRAY2BGR)
 		elif type == 'chain':
-			frame[self.y_topCorner_CORRENTE:self.y_botCorner_CORRENTE,self.x_topCorner_CORRENTE:self.x_botCorner_CORRENTE ] = new
+			frame[self.y_topCorner_CORRENTE:self.y_botCorner_CORRENTE,self.x_topCorner_CORRENTE:self.x_botCorner_CORRENTE,: ] = new
 
 		return frame
 

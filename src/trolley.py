@@ -12,7 +12,7 @@ class TrolleyVerifier(object):
 		# TO-DO: Fazer buscar esses parametros de um arquivo
 		self.limiar = 0.35e7
 		
-		self.max_wheelRadius = 40
+		self.max_wheelRadius = 37
 		self.min_wheelRadius = 30
 		self.sens_wheelRadius = 7
 

@@ -17,7 +17,7 @@ class arrastadorVerifier(object):
 		out = frame.copy()
 		frame = self.preProcess(frame)
 		if self.isArrastador(frame):
-			(max_angle, out) = self.meassureAngle(frame, out)
+			(max_angle, out) = self.meassureAngle(frame,out)
 			return (max_angle, out)
 			print(max_angle)
 		else:
@@ -33,15 +33,16 @@ class arrastadorVerifier(object):
 			(maxVal_pre, maxLoc1,_) = a
 			#(maxVal_pos, maxLoc2) = b
 		#if(  maxVal_pos > 1.4e8 ) | ( maxVal_pre > 1.05e8 ):
-		if(  maxVal_pre > 1e8 ):
+		#print maxVal_pre  
+		if(  maxVal_pre > 100000000  ):
 			return True
 		else:
 			return False
 
-	def meassureAngle(self,frame, out):
+	def meassureAngle(self,frame,out):
 
 		#TO-DO Definir parâmetros do processamento como atributos da classe
-				
+		#out = frame.copy()
 		frame = cv2.Canny(frame,120,150,apertureSize = 3)
 		lines = cv2.HoughLinesP(
 			image = frame,
@@ -77,8 +78,9 @@ class arrastadorVerifier(object):
 
 	def preProcess(self,frame):
 		frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		frame = adjust_gamma(frame, gamma=0.8)
-		frame = cv2.GaussianBlur(frame,(7,7),0)
+		frame = cv2.equalizeHist(frame)
+		frame = adjust_gamma(frame, gamma=10)
+		frame = cv2.GaussianBlur(frame,(3,3),0)
 		_, frame = cv2.threshold(frame,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 		
 		return frame

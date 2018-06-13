@@ -36,7 +36,7 @@ if (__name__ == '__main__'):
 	app = QtApp()
 
 	proc = imageProc()
-	app.createPeriodicTask(cicle,50)
+	app.createPeriodicTask(cicle,300)
 	app.run()
 
 
