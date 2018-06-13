@@ -37,7 +37,7 @@ def plotCircles(circles,image):
 			x_centro = x 
 			y_centro = y 
 
-			cv2.circle( image, ( x_centro, y_centro ), r, (0, 255, 0), 1)
+			cv2.circle( image, ( x_centro, y_centro ), r, (0, 255, 0), 2)
 			cv2.rectangle( image, (x_centro - 2, y_centro - 2), (x_centro + 2, y_centro + 2), (0, 128, 255), -1)
 		return image
 	return image
