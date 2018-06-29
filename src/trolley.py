@@ -10,11 +10,11 @@ class TrolleyVerifier(object):
 		
 		# Setar parametros de detecção
 		# TO-DO: Fazer buscar esses parametros de um arquivo
-		self.limiar = 0.35e7
+		self.limiar = 0.45e7
 		
 		self.max_wheelRadius = 37
 		self.min_wheelRadius = 30
-		self.sens_wheelRadius = 7
+		self.sens_wheelRadius = 4
 
 		self.max_centerRadius = 20
 		self.min_centerRadius = 9
@@ -28,9 +28,9 @@ class TrolleyVerifier(object):
 			if has:
 				(has, center) = self.detectCenter(circle, wheel)
 				#print(center)
-
 				out = plotCircles(wheel,out)
-				out = plotCircles(center,out)
+				if has:
+					out = plotCircles(center,out)
 			else:
 				return (False,out)
 
@@ -67,16 +67,20 @@ class TrolleyVerifier(object):
 		y = int(y)
 		r = int(r)
 		# delimita o quadrado inscrito no circulo para a busca pelo centro do trolley
-		dentro_bola = frame[ x - r : y + r,   x - r : x + r ]
-
-		circulo_interno = cv2.HoughCircles(
-			dentro_bola, 
-			cv2.HOUGH_GRADIENT, 
-			self.sens_centerRadius,
-			300, 
-			maxRadius = self.max_centerRadius, 
-			minRadius = self.min_centerRadius
-		)
+		dentro_bola = frame[ y - r : y + r,   x - r : x + r ]
+		#print(dentro_bola)
+		#print(wheel)
+		if(dentro_bola == []):
+			circulo_interno = cv2.HoughCircles(
+				dentro_bola, 
+				cv2.HOUGH_GRADIENT, 
+				self.sens_centerRadius,
+				300, 
+				maxRadius = self.max_centerRadius, 
+				minRadius = self.min_centerRadius
+			)
+		else:
+			circulo_interno = None
 		if not (circulo_interno is None):
 			# Parametros do circulo externo
 			x_ext_s = x  
@@ -88,7 +92,9 @@ class TrolleyVerifier(object):
 			circulo_interno[0][0][0] = x_centro_interno
 			circulo_interno[0][0][1] = y_centro_interno
 			#print(circulo_interno)
-		return (True,circulo_interno)
+			return (True,circulo_interno)
+		else:
+			return (False,None)
 
 	def loadTemplate(self):
 
@@ -105,7 +111,6 @@ class TrolleyVerifier(object):
 			maxRadius = self.max_wheelRadius, 
 			minRadius = self.min_wheelRadius
 		)
-
 		return circles
 
 	def bearing(self):

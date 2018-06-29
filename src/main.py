@@ -2,7 +2,6 @@
 import numpy as np
 import cv2
 
-
 from imageProc import *
 from uiHandler import *
 from camera import *
@@ -26,7 +25,6 @@ def cicle():
 		app.updateNow(frame)
 
 
-
 if (__name__ == '__main__'):
 	
 	global app, proc
@@ -36,7 +34,7 @@ if (__name__ == '__main__'):
 	app = QtApp()
 
 	proc = imageProc()
-	app.createPeriodicTask(cicle,300)
+	app.createPeriodicTask(cicle,10)
 	app.run()
 
 

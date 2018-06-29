@@ -43,6 +43,13 @@ def plotCircles(circles,image):
 	return image
 
 
+def log_transform(img,param):
+	img = img.astype(np.float) # Cast to float
+	c = (img.max()) / (img.max()**(param))
+	img = (c*img**(param)).astype(np.uint8)
+	return img
+
+
 def adjust_gamma(image, gamma=1.0):
 	# build a lookup table mapping the pixel values [0, 255] to
 	# their adjusted gamma values

@@ -52,7 +52,7 @@ class arrastadorVerifier(object):
 			lines = np.array([]), 
 			minLineLength = 25,
 			maxLineGap = 10
-			)
+		)
 
 		vectors = [[0,0]]
 		if lines is None:
